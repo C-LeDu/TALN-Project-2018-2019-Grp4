@@ -28,7 +28,7 @@ class Document:
         # 2. Trouver les intervalles de Tokens
         doc.tokens = Document._find_tokens(doc, words, pos_tags, text)
         # 3. Trouver les intervalles de phrases
-        doc.sentences = Document._find_sentences(sentences, text)
+        doc.sentences = Document._find_sentences(doc, sentences, text)
 
         return doc
 
@@ -48,9 +48,10 @@ class Document:
             pos = text.find(token, offset, offset + max(50, len(token)))
             if pos > -1:
                 shape = Token.get_shape_category(token)
-                tokens.append(Token(doc, pos, pos + len(token), pos_tag, shape, text))
+                tokens.append(Token(doc, pos, pos + len(token), pos_tag, shape, token))
             else:
                 raise Exception
+        return tokens
 
     @staticmethod
     def _find_sentences(doc, sentences: List[str], doc_text: str):
@@ -59,6 +60,8 @@ class Document:
         for sent in sentences:
             pos = doc_text.find(sent)
             if pos > -1:
+                s = Sentence(doc, pos, pos + len(sent))
+                sent_list.append(s)
+            else:
                 raise Exception
-            sent_list.append(Sentence(doc, pos, pos+len(sent)))
         return sent_list

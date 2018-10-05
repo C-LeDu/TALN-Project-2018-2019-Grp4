@@ -15,7 +15,11 @@ class test_document(unittest.TestCase):
 
     def test_create_from_text(self):
         document = Document.create_from_text(self.string)
-        self.assertEqual(len(document), 216, 'Some document were not extracted')
+        self.assertEqual(len(document.sentences), 2, 'Some document were not extracted')
+
+    def test_token(self):
+        document = Document.create_from_text(self.string)
+        self.assertEqual(document.tokens[0].text, 'Lorem', 'Some document were not extracted')
 
 if __name__ == '__main__':
     unittest.main()

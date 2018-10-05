@@ -37,3 +37,29 @@ class Interval:
 
     def __hash__(self):
         return hash(tuple(v for k, v in sorted(self.__dict__.items())))
+
+    def __contains__(self, item: int):
+        """ Return self.start <= item < self.end """
+        return self.start <= item < self.end
+
+    def __repr__(self):
+        return 'Interval[{}, {}]'.format(self.start, self.end)
+
+    def __str__(self):
+        return repr(self)
+
+    def intersection(self, other) -> 'Interval':
+        """ Return the interval common to self and other """
+        a, b = sorted((self, other))
+        if a.end <= b.start:
+            return Interval(self.start, self.start)
+        return Interval(b.start, min(a.end, b.end))
+
+    def overlaps(self, other) -> bool:
+        """ Return True if there exists an interval common to self and other """
+        a, b = sorted((self, other))
+        return a.end > b.start
+
+    def shift(self, i: int):
+        self.start += i
+        self.end += i

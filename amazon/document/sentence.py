@@ -1,11 +1,10 @@
 from amazon.document.interval import Interval
 
-
 class Sentence(Interval):
     """ Interval corresponding to a Sentence"""
 
-    def init(self, document, start: int, end: int):
-        Interval.init(self, start, end)
+    def __init__(self, document, start: int, end: int):
+        Interval.__init__(self, start, end)
         self._doc = document
 
     def repr(self):
@@ -13,5 +12,9 @@ class Sentence(Interval):
 
     @property
     def tokens(self):
+        liste = []
         """Returns the list of tokens contained in a sentence"""
-        # TODO: To be implemented (tip: use Interval.overlap)
+        for token in self._doc.tokens:
+            if self.overlaps(token):
+                liste.append(token)
+        return liste
