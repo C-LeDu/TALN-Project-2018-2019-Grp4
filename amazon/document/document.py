@@ -1,5 +1,7 @@
 import nltk
 from typing import List
+from amazon.document.sentence import Sentence
+from amazon.document.token import Token
 
 
 class Document:
@@ -42,21 +44,21 @@ class Document:
         tokens = []
         missing = None
         for token, pos_tag in zip(word_tokens, pos_tags):
-            # Traiter le changement de ligne '\n' avec pos tag 'NL'
 
             pos = text.find(token, offset, offset + max(50, len(token)))
             if pos > -1:
-                if missing:
-                    # Find missing
-            # Make Token instance + add it to list
-            # Traiter le changement de ligne '\n' avec pos tag 'NL'
-
-            # Make Token instance: Token(doc, start, end, pos, shape, text) shape = get_shape_category(token)
-            # Add to list of tokens
+                shape = Token.get_shape_category(token)
+                tokens.append(Token(doc, pos, pos + len(token), pos_tag, shape, text))
             else:
-                # Record missing
+                raise Exception
 
     @staticmethod
     def _find_sentences(doc, sentences: List[str], doc_text: str):
         """ yield Sentence objects each time a sentence is found in the text """
-        # TODO: To be implemented
+        sent_list = list()
+        for sent in sentences:
+            pos = doc_text.find(sent)
+            if pos > -1:
+                raise Exception
+            sent_list.append(Sentence(doc, pos, pos+len(sent)))
+        return sent_list
