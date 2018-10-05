@@ -1,6 +1,6 @@
-from Projet.interval import interval
+from amazon.document.interval import Interval
 
-class Token(interval):
+class Token(Interval):
     """ A Interval representing word like units of text with a dictionary of features """
 
     def __init__(self, document, start: int, end: int, pos: str, shape: int, text: str):
@@ -16,16 +16,14 @@ class Token(interval):
         :param text: this is the text representation of token
         """
 
-        interval.__init__(self, start, end)
+        Interval.__init__(self, start, end)
         self._doc = document
         # TODO: To be implemented
 
 
     @property
     def text(self):
-
-
-    # TODO: To be implemented
+        # TODO: To be implemented
 
     @property
     def pos(self):
@@ -39,10 +37,6 @@ class Token(interval):
 
     # TODO: To be implemented
 
-    def __getitem__(self, item):
-
-
-    # TODO: To be implemented
 
     def __repr__(self):
         return 'Token({}, {}, {})'.format(self.text, self.start, self.end)

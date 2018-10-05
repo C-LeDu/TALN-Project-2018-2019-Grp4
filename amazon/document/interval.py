@@ -1,4 +1,4 @@
-class interval:
+class Interval:
     """A class for representing a contiguous range of integers"""
 
     def __init__(self, start: int, end: int):
