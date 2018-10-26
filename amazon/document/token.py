@@ -5,7 +5,7 @@ import re
 class Token(Interval):
     """ A Interval representing word like units of text with a dictionary of features """
 
-    def __init__(self, document, start: int, end: int, pos: str, shape: int, text: str):
+    def __init__(self, document, start: int, end: int, pos: str, shape: int, text: str, label: str):
         """
         Note that a token has 2 text representations.
         1) How the text appears in the original document e.g. doc.text[token.start:token.end]
@@ -23,6 +23,7 @@ class Token(Interval):
         self._pos = pos
         self._text = text
         self._shape = shape
+        self._label = label
 
 
     @property
@@ -38,6 +39,9 @@ class Token(Interval):
     def shape(self):
         return self._shape
 
+    @property
+    def label(self):
+        return self._label
 
     def __repr__(self):
         return 'Token({}, {}, {})'.format(self.text, self.start, self.end)
