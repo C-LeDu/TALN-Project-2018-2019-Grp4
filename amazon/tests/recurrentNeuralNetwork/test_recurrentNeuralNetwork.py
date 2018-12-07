@@ -20,7 +20,7 @@ class test_recurrentNeuralNetwork(unittest.TestCase):
 
 
     def test_build_sequence(self):
-        self.assertIsInstance(RecurrentNeuralNetwork.build_sequence(self.vec.word_embeddings,{"pos": (10,10), "shape": (2,2)},45), RecurrentNeuralNetwork)
+        self.assertIsInstance(RecurrentNeuralNetwork.build_sequence(self.vec.word_embeddings,{"word": (10,10), "shape": (2,2)},45), RecurrentNeuralNetwork)
 
 if __name__ == '__main__':
     unittest.main()
