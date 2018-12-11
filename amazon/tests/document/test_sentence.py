@@ -15,4 +15,4 @@ class test_sentence(unittest.TestCase):
 
     def test_tokens(self):
         document = Document.create_from_text(self.string)
-        self.assertEqual(len(document.sentences[0].tokens),6, 'ERROR')
+        self.assertEqual(len(document.sentences[0].tokens), 6, 'ERROR')

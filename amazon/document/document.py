@@ -44,11 +44,11 @@ class Document:
         tokens = []
         missing = None
         for token, pos_tag in zip(word_tokens, pos_tags):
-
             pos = text.find(token, offset, offset + max(50, len(token)))
             if pos > -1:
                 shape = Token.get_shape_category(token)
-                tokens.append(Token(doc, pos, pos + len(token), pos_tag, shape, token))
+                tokens.append(Token(doc, pos, pos + len(token), shape, token, pos_tag))
+                offset = pos+1
             else:
                 raise Exception
         return tokens
@@ -84,5 +84,5 @@ class Document:
             pos = doc.text.find(word, offset)
             if pos >= 0:
                 offset = pos + len(word)
-                doc.tokens.append(Token(doc, pos, offset, None, Token.get_shape_category(word), word, label=label))
+                doc.tokens.append(Token(doc, pos, offset, Token.get_shape_category(word), word, label=label))
         return doc
