@@ -3,30 +3,26 @@ from keras.preprocessing import sequence
 
 from amazon.parser.EnglishNerParser import EnglishNerParser
 from amazon.vectorizer.Vectorizer import Vectorizer
+from keras.utils import np_utils
+from amazon.recurrentneuralnetwork.RecurrentNeuralNetwork import RecurrentNeuralNetwork
 
-if __name__ == '__main__' :
+if __name__ == '__main__':
 
     print('Reading training data')
-    documents = EnglishNerParser().read_file('F:/Utilisateur/Documents/ESGI/Cours/Traitement Automatique du Langage Naturel/eng_train.txt')
+    documents = EnglishNerParser().read_file('C:/Users/Charlotte/Documents/Cours/TALN/eng_train.txt')
 
 
     print('Create features')
-    vectorizer = Vectorizer(word_embedding_path='F:/Utilisateur/Documents/ESGI/Cours/Traitement Automatique du Langage Naturel/glove.6B.50d.txt')
+    vectorizer = Vectorizer(word_embedding_path='C:/Users/Charlotte/Documents/Cours/TALN/glove.6B.50d.txt')
     word, shape = vectorizer.encode_features(documents)
     labels = vectorizer.encode_annotations(documents)
     print('Loaded {} data samples'.format(len(word)))
-
-
-    from keras.utils import np_utils
 
     print('Split training/validation')
     max_length = 60
     # --------------- Features_word ----------------
     # 2. Padd sequences
     word = sequence.pad_sequences(word, maxlen=max_length)
-    # --------------- Features_pos ----------------
-    # 2. Padd sequences
-    # pos = sequence.pad_sequences(pos, maxlen=max_length)
     # --------------- Features_shape ----------------
     # 2. Padd sequences
     shape = sequence.pad_sequences(shape, maxlen=max_length)
@@ -49,9 +45,6 @@ if __name__ == '__main__' :
             x_validation.append([word[i], shape[i]])
             y_validation.append(labels[i])
 
-
-    from amazon.recurrentneuralnetwork.RecurrentNeuralNetwork import RecurrentNeuralNetwork
-
     print('Building network...')
     model = RecurrentNeuralNetwork.build_sequence(word_embeddings=vectorizer.word_embeddings,
                                           input_shape={'word': (len(vectorizer.pos2index), 10),
@@ -59,6 +52,7 @@ if __name__ == '__main__' :
                                           out_shape=len(vectorizer.labels),
                                           units=100, dropout_rate=0.5)
     # or
+    # TODO: C'est ici que ça foire !! -> vectorizer.pos2index !!!!!!!!!!!
     RecurrentNeuralNetwork.build_classification(word_embeddings=vectorizer.word_embeddings,
                                                 input_shape={'word': (len(vectorizer.pos2index), 10),
                                                              'shape': (len(vectorizer.shape2index), 2),

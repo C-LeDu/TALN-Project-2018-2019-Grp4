@@ -20,5 +20,6 @@ class test_token(unittest.TestCase):
     def test_shape(self):
         self.assertEqual(self.token.shape, 7, 'La shape n\'est pas correct')
 
+
 if __name__ == '__main__':
     unittest.main()

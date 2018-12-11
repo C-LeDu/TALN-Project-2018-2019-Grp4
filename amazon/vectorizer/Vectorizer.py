@@ -21,10 +21,10 @@ class Vectorizer:
         self.shapes = self.shape2index.keys()
 
         # Create labels to index dictionary
-        self.label2index = {'PAD': 0, 'TO': 1, 'VBN': 2, "''": 3, 'WP': 4, 'UH': 5, 'VBG': 6, 'JJ': 7, 'VBZ': 8,
+        self.label2index = {'PAD': 0, 'TO': 1, 'VBN': 2, '\'\'': 3, 'WP': 4, 'UH': 5, 'VBG': 6, 'JJ': 7, 'VBZ': 8,
                             '--': 9,
                             'VBP': 10, 'NN': 11, 'DT': 12, 'PRP': 13, ':': 14, 'WP$': 15, 'NNPS': 16, 'PRP$': 17,
-                            'WDT': 18, '(': 19, ')': 20, '.': 21, ',': 22, '``': 23, '$': 24, 'RB': 25, 'RBR': 26,
+                            'WDT': 18, '(': 19, ')': 20, '.': 21, ',': 22, '"': 23, '$': 24, 'RB': 25, 'RBR': 26,
                             'RBS': 27, 'VBD': 28, 'IN': 29, 'FW': 30, 'RP': 31, 'JJR': 32, 'JJS': 33, 'PDT': 34,
                             'MD': 35,
                             'VB': 36, 'WRB': 37, 'NNP': 38, 'EX': 39, 'NNS': 40, 'SYM': 41, 'CC': 42, 'CD': 43,
@@ -41,16 +41,15 @@ class Vectorizer:
                  Each item in the list is a sentence, i.e. a list of indices (one per token)
         """
         # Loop over documents
-        word = list()
-        shape = list()
-        for doc in documents :
-
+        word = []
+        shape = []
+        for doc in documents:
             #    Loop over sentences
             for sentence in doc.sentences:
                 #        Loop over tokens
-                word_index_sentence = list()
-                shape_index_sentence = list()
-                for token in doc.tokens[sentence.start:sentence.end]:
+                word_index_sentence = []
+                shape_index_sentence = []
+                for token in sentence.tokens:
                     #           Convert features to indices
                     if token.text.lower() in self.word_embeddings.index2word:
                         word_index_sentence.append(self.word_embeddings.index2word.index(token.text.lower()))
@@ -71,20 +70,21 @@ class Vectorizer:
         :param documents: list of documents to be converted in annotations vector
         :return: numpy array. Each item in the list is a sentence, i.e. a list of labels (one per token)
         """
-        labels = list()
+        labels = []
         # Loop over documents
-        for doc in documents :
+        for doc in documents:
             #    Loop over sentences
             for sentence in doc.sentences:
                 #        Loop over tokens
-                label_index_sentence = list()
-                for token in doc.tokens[sentence.start:sentence.end]:
-                    #           Convert label to numerical representation
+                label_index_sentence = []
+                for token in sentence.tokens:
+                    #          Convert label to numerical representation
                     #          And Append to labels of sentence
+                    if self.label2index.get(token.label) is None:
+                        print("FUCKKK!")
                     label_index_sentence.append(self.label2index.get(token.label))
                 #   append to sentences
                 labels.append(label_index_sentence)
-
         return labels
 
 
