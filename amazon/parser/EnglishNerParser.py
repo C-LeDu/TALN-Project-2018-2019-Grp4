@@ -1,3 +1,4 @@
+from amazon.document import Sentence
 from amazon.document.interval import Interval
 from amazon.document.document import Document
 from amazon.parser.parser import Parser
@@ -25,7 +26,7 @@ class EnglishNerParser(Parser):
                             cols = token.split(' ')
                             words.append(cols[0])
                             labels.append(cols[1])
-                        sentences.append(Interval(start, start+len(tokens)))
+                        sentences.append(Sentence(doc, start, start+len(tokens)))
                         start += len(tokens)
                 # 4. Create a Document object
                 documents.append(Document.create_from_vectors(words, sentences, labels))

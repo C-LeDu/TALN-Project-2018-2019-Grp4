@@ -2,7 +2,6 @@ import nltk
 from typing import List
 from amazon.document.sentence import Sentence
 from amazon.document.token import Token
-from amazon.document.interval import Interval
 
 
 class Document:
@@ -68,14 +67,14 @@ class Document:
         return sent_list
 
     @classmethod
-    def create_from_vectors(cls, words: List[str], sentences: List[Interval]=None, labels: List[str]=None):
+    def create_from_vectors(cls, words: List[str], sentences: List[Sentence]=None, labels: List[str]=None):
         doc = Document()
         text = []
         offset = 0
         doc.sentences = []
         for sentence in sentences:
             text.append(' '.join(words[sentence.start:sentence.end + 1]) + ' ')
-            doc.sentences.append(Interval(offset, offset + len(text[-1])))
+            doc.sentences.append(Sentence(doc, offset, offset + len(text[-1])))
             offset += len(text[-1])
         doc.text = ''.join(text)
 
