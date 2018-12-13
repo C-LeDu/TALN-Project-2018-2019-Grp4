@@ -41,19 +41,13 @@ class RecurrentNeuralNetwork():
                                     weights=[weights], name="word_embeddings_layer", trainable=False,
                                     mask_zero=True)(word_input)
 
-        # pos_input = Input(shape=(None,), dtype='int32', name='pos_input')
-        # pos_embeddings = Embedding(input_shape['pos'][0], input_shape['pos'][1], name='pos_embeddings_layer',
-        #                            mask_zero=True)(pos_input)
-
         shape_input = Input(shape=(None,), dtype='int32', name='shape_input')
         shape_embeddings = Embedding(input_shape['shape'][0], input_shape['shape'][1], name='shape_embeddings_layer',
                                      mask_zero=True)(shape_input)
 
         merged_input = concatenate([word_embeddings, shape_embeddings], axis=-1)
 
-        # Build the rest of the model here
-
-        #-------------------------------------------------------------------------------------------------------------#
+        # ------------------------------------------------------------------------------------------------------------ #
 
         print('Build Bi-RNN model...')
 

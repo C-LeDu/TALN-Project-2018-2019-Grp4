@@ -6,6 +6,8 @@ from amazon.vectorizer.Vectorizer import Vectorizer
 from keras.utils import np_utils
 from amazon.recurrentneuralnetwork.RecurrentNeuralNetwork import RecurrentNeuralNetwork
 
+import numpy as np
+
 if __name__ == '__main__':
 
     print('Reading training data')
@@ -38,27 +40,23 @@ if __name__ == '__main__':
     y_train, y_validation = [], []
 
     for i in range(len(word)):
-        if i < len(word)*0.8 :
-            x_train.append([word[i], shape[i]])
-            y_train.append(labels[i])
-        else :
-            x_validation.append([word[i], shape[i]])
-            y_validation.append(labels[i])
+        if i < len(word)*0.8:
+            x_train.append([np.array(word[i]), np.array(shape[i])])
+            y_train.append(np.array(labels[i]))
+        else:
+            x_validation.append([np.array(word[i]), np.array(shape[i])])
+            y_validation.append(np.array(labels[i]))
+
+    x_train = np.asarray(x_train)
+    y_train = np.asarray(y_train)
+    x_validation = np.asarray(x_validation)
+    y_validation = np.asarray(y_validation)
 
     print('Building network...')
     model = RecurrentNeuralNetwork.build_sequence(word_embeddings=vectorizer.word_embeddings,
-                                          input_shape={'word': (len(vectorizer.pos2index), 10),
-                                                       'shape': (len(vectorizer.shape2index), 2)},
+                                          input_shape={'shape': (len(vectorizer.shape2index), 2)},
                                           out_shape=len(vectorizer.labels),
                                           units=100, dropout_rate=0.5)
-    # or
-    # TODO: C'est ici que ça foire !! -> vectorizer.pos2index !!!!!!!!!!!
-    RecurrentNeuralNetwork.build_classification(word_embeddings=vectorizer.word_embeddings,
-                                                input_shape={'word': (len(vectorizer.pos2index), 10),
-                                                             'shape': (len(vectorizer.shape2index), 2),
-                                                             'max_length': max_length},
-                                                out_shape=len(vectorizer.labels),
-                                                units=100, dropout_rate=0.5)
 
     print('Train...')
     trained_model_name = 'ner_weights.h5'
