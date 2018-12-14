@@ -1,7 +1,7 @@
-from amazon.document import Sentence
-from amazon.document.interval import Interval
-from amazon.document.document import Document
-from amazon.parser.parser import Parser
+from postag_eng.document import Sentence
+from postag_eng.document.interval import Interval
+from postag_eng.document.document import Document
+from postag_eng.parser.parser import Parser
 
 
 class EnglishNerParser(Parser):

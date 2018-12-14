@@ -2,7 +2,7 @@ import logging
 import unittest
 import os
 import random
-from amazon.document import Token
+from postag_eng.document import Token
 LOGGER = logging.getLogger(__name__)
 
 

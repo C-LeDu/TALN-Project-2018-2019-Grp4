@@ -1,11 +1,11 @@
 import logging
 import unittest
 
-from amazon.parser.EnglishNerParser import EnglishNerParser
-from amazon.vectorizer.Vectorizer import Vectorizer
-from amazon.recurrentneuralnetwork.RecurrentNeuralNetwork import RecurrentNeuralNetwork
+from postag_eng.parser.EnglishNerParser import EnglishNerParser
+from postag_eng.vectorizer.Vectorizer import Vectorizer
+from postag_eng.recurrentneuralnetwork.RecurrentNeuralNetwork import RecurrentNeuralNetwork
 
-filename = "F:/Utilisateur/Documents/ESGI/Cours/Traitement Automatique du Langage Naturel/Project/TALN-Project-2018-2019-Grp4/amazon/tests/vectorizer/testoiyage.txt"
+filename = "F:/Utilisateur/Documents/ESGI/Cours/Traitement Automatique du Langage Naturel/Project/TALN-Project-2018-2019-Grp4/postag_eng/tests/vectorizer/testoiyage.txt"
 
 
 class test_recurrentNeuralNetwork(unittest.TestCase):

@@ -1,6 +1,6 @@
 import logging
 import unittest
-from amazon.parser.EnglishNerParser import EnglishNerParser
+from postag_eng.parser.EnglishNerParser import EnglishNerParser
 LOGGER = logging.getLogger(__name__)
 
 filename = "testoiyer.txt"

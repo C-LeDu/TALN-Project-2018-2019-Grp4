@@ -1,4 +1,4 @@
-from amazon.document.document import Document
+from postag_eng.document.document import Document
 
 class Parser(object):
     """Classe parente pour tous les parsers"""

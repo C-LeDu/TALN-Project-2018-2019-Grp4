@@ -4,7 +4,7 @@ import unittest
 import os
 import random
 from nltk.corpus import gutenberg
-from amazon.document import Document
+from postag_eng.document import Document
 LOGGER = logging.getLogger(__name__)
 
 

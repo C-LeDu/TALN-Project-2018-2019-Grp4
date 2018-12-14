@@ -3,8 +3,8 @@ from typing import List
 
 from gensim.models import KeyedVectors
 
-from amazon.document import Document
-from amazon.document import Sentence
+from postag_eng.document import Document
+from postag_eng.document import Sentence
 
 class Vectorizer:
     """ Transform a string into a vector representation"""

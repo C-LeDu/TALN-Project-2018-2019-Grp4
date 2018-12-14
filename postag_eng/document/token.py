@@ -1,4 +1,4 @@
-from amazon.document.interval import Interval
+from postag_eng.document.interval import Interval
 import re
 
 

@@ -1,10 +1,10 @@
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.preprocessing import sequence
 
-from amazon.parser.EnglishNerParser import EnglishNerParser
-from amazon.vectorizer.Vectorizer import Vectorizer
+from postag_eng.parser.EnglishNerParser import EnglishNerParser
+from postag_eng.vectorizer.Vectorizer import Vectorizer
 from keras.utils import np_utils
-from amazon.recurrentneuralnetwork.RecurrentNeuralNetwork import RecurrentNeuralNetwork
+from postag_eng.recurrentneuralnetwork.RecurrentNeuralNetwork import RecurrentNeuralNetwork
 
 import numpy as np
 

@@ -1,7 +1,7 @@
 import nltk
 from typing import List
-from amazon.document.sentence import Sentence
-from amazon.document.token import Token
+from postag_eng.document.sentence import Sentence
+from postag_eng.document.token import Token
 
 
 class Document:
