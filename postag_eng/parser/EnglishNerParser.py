@@ -23,9 +23,10 @@ class EnglishNerParser(Parser):
                     if sentence != '':
                         tokens = sentence.split('\n')
                         for token in tokens:
-                            cols = token.split(' ')
-                            words.append(cols[0])
-                            labels.append(cols[1])
+                            if ' ' in token :
+                                cols = token.split(' ')
+                                words.append(cols[0])
+                                labels.append(cols[1])
                         sentences.append(Sentence(doc, start, start+len(tokens)))
                         start += len(tokens)
                 # 4. Create a Document object

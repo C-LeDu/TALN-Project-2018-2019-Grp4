@@ -11,17 +11,17 @@ import numpy as np
 if __name__ == '__main__':
 
     print('Reading training data')
-    documents = EnglishNerParser().read_file('C:/Users/Charlotte/Documents/Cours/TALN/eng_train.txt')
+    documents = EnglishNerParser().read_file('F:/Utilisateur/Documents/ESGI/Cours/Traitement Automatique du Langage Naturel/eng_train.txt')
 
 
     print('Create features')
-    vectorizer = Vectorizer(word_embedding_path='C:/Users/Charlotte/Documents/Cours/TALN/glove.6B.50d.txt')
+    vectorizer = Vectorizer(word_embedding_path='F:/Utilisateur/Documents/ESGI/Cours/Traitement Automatique du Langage Naturel/glove.6B.50d.txt')
     word, shape = vectorizer.encode_features(documents)
     labels = vectorizer.encode_annotations(documents)
     print('Loaded {} data samples'.format(len(word)))
 
     print('Split training/validation')
-    max_length = 60
+    max_length = 20
     # --------------- Features_word ----------------
     # 2. Padd sequences
     word = sequence.pad_sequences(word, maxlen=max_length)
@@ -43,9 +43,12 @@ if __name__ == '__main__':
     x_validation = [np.asarray(word[to+1:]), np.asarray(shape[to+1:])]
     y_validation = np.array(labels[to+1:])
 
+    print(x_train[1].shape)
+    print(x_validation[1].shape)
+
     print('Building network...')
     model = RecurrentNeuralNetwork.build_sequence(word_embeddings=vectorizer.word_embeddings,
-                                          input_shape={'shape': (len(vectorizer.shape2index), 2)},
+                                          input_shape={'shape': (len(vectorizer.shape2index), 46)},
                                           out_shape=len(vectorizer.labels),
                                           units=100, dropout_rate=0.5)
 
@@ -60,31 +63,15 @@ if __name__ == '__main__':
 
     model.fit(x_train, y_train,
               validation_data=(x_validation, y_validation),
-              batch_size=32,  epochs=10, callbacks=[saveBestModel, early_stopping])
+              batch_size=32,  epochs=50, callbacks=[saveBestModel, early_stopping])
 
-    # Load the best weights in the model
-    model.load_weights(trained_model_name)
+    # # Load the best weights in the model
+    # model.load_weights(trained_model_name)
+    #
+    # # Save the complete model
+    # model.save('rnn.h5')
 
-    # Save the complete model
-    model.save('rnn.h5')
 
-    #
-    # print('Reading training data')
-    # documents = EnglishNerParser.read('/Path/to/testingdata')
-    #
-    # print('Create features')
-    # vectorizer = Vectorizer(word_embedding_path='/Path/to/embeddings file')
-    # features = vectorizer.encode_features(documents)
-    # labels = vectorizer.encode_annotations(documents)
-    # print('Loaded {} data samples'.format(len(features)))
-    #
-    #
-    # model = RecurrentNeuralNetwork.load('/Path/to/modelfile')
-    #
-    # y_predictied = []
-    # # Loop over features
-    #     # Predict labels and convert from probabilities to classes
-    #     # model.predict(features, batch_size=1, verbose=0)
-    #     # RecurrentNeuralNetwork.probas_to_classes()
-    #
+
+
 
